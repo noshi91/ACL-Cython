@@ -14,16 +14,16 @@ cdef class fenwicktree:
     def __dealloc__(fenwicktree self):
         free(self.data)
     
-    cdef void add(fenwicktree self, int p, long x) nogil:
+    cdef void add(fenwicktree self, int p, long x):
         p += 1
         while p <= self._n:
             self.data[p - 1] += x
             p += p & -p
     
-    cdef long sum(fenwicktree self, int l, int r) nogil:
-        return self.__sum__(r) - self.__sum__(l)
+    cdef long sum(fenwicktree self, int l, int r):
+        return self.__sum(r) - self.__sum(l)
     
-    cdef long __sum__(fenwicktree self, int r) nogil:
+    cdef long __sum(fenwicktree self, int r):
         cdef long s = 0
         while r > 0:
             s += self.data[r - 1]
